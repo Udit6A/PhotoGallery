@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red & Black Photo Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a; /* A very dark, near-black background */
+        }
+        .header-font {
+            font-family: 'Playfair Display', serif;
+        }
+        .gallery-item {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px 5px rgba(239, 68, 68, 0.25), 0 8px 25px rgba(0,0,0,0.6); /* Red glow effect */
+        }
+        #lightbox {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .hot-text {
+          background: linear-gradient(145deg, #ef4444, #b91c1c); /* Red gradient */
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="text-gray-300">
+
+    <!-- Header -->
+    <header class="bg-black/70 backdrop-blur-lg border-b border-red-500/20 sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="header-font hot-text text-4xl font-bold text-center">Crimson Gallery</h1>
+            <p class="text-center text-gray-400 mt-2">A collection of moments, captured in light and shadow.</p>
+        </div>
+    </header>
+
+    <!-- Main Content: Image Grid -->
+    <main class="container mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <!-- Images with a subtle border -->
+            <div class="gallery-item cursor-pointer overflow-hidden rounded-lg shadow-lg border-2 border-white/5" data-large-src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400" alt="Mountain Landscape" class="w-full h-full object-cover">
+            </div>
+             <div class="gallery-item cursor-pointer overflow-hidden rounded-lg shadow-lg border-2 border-white/5" data-large-src="https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=2175">
+                <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=400" alt="Green Valley" class="w-full h-full object-cover">
+            </div>
+            <div class="gallery-item cursor-pointer overflow-hidden rounded-lg shadow-lg border-2 border-white/5" data-large-src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=2070">
+                <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=400" alt="Lake House" class="w-full h-full object-cover">
+            </div>
+            <div class="gallery-item cursor-pointer overflow-hidden rounded-lg shadow-lg border-2 border-white/5" data-large-src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=1974">
+                <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=400" alt="Waterfall" class="w-full h-full object-cover">
+            </div>
+            <div class="gallery-item cursor-pointer overflow-hidden rounded-lg shadow-lg border-2 border-white/5" data-large-src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?q=80&w=2070">
+                <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?q=80&w=400" alt="Beach Sunrise" class="w-full h-full object-cover">
+            </div>
+            <div class="gallery-item cursor-pointer overflow-hidden rounded-lg shadow-lg border-2 border-white/5" data-large-src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=2070">
+                <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=400" alt="Forest Path" class="w-full h-full object-cover">
+            </div>
+            <div class="gallery-item cursor-pointer overflow-hidden rounded-lg shadow-lg border-2 border-white/5" data-large-src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?q=80&w=1974">
+                <img src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?q=80&w=400" alt="Hot Air Balloons" class="w-full h-full object-cover">
+            </div>
+            <div class="gallery-item cursor-pointer overflow-hidden rounded-lg shadow-lg border-2 border-white/5" data-large-src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=2074">
+                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=400" alt="Cliffs and Sea" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </main>
+
+    <!-- Lightbox/Modal -->
+    <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50 hidden">
+        <div class="relative max-w-5xl max-h-full">
+            <button id="close-lightbox" class="absolute -top-3 -right-3 md:-top-5 md:-right-5 text-white bg-black/50 hover:bg-black/80 rounded-full p-2 focus:outline-none ring-1 ring-red-500/50 transition-transform hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <img id="lightbox-image" src="" alt="Enlarged view" class="rounded-lg shadow-2xl max-w-full max-h-[90vh] border-4 border-red-500/20">
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const closeLightbox = document.getElementById('close-lightbox');
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const largeSrc = item.getAttribute('data-large-src');
+                    lightboxImage.setAttribute('src', largeSrc);
+                    lightbox.classList.remove('hidden');
+                    requestAnimationFrame(() => {
+                        lightbox.classList.add('opacity-100');
+                    });
+                });
+            });
+
+            const close = () => {
+                lightbox.classList.remove('opacity-100');
+                setTimeout(() => {
+                    lightbox.classList.add('hidden');
+                    lightboxImage.setAttribute('src', ''); // Clear src to stop loading
+                }, 300); // Match transition duration
+            };
+
+            closeLightbox.addEventListener('click', close);
+            
+            // Close lightbox when clicking the background overlay
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    close();
+                }
+            });
+
+            // Close lightbox with the Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+                    close();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+
